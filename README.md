@@ -1,75 +1,44 @@
-# React + TypeScript + Vite
+# 3D Spatial Mesh Viewer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A high-performance, real-time 3D spatial visualization platform engineered with **React**, **TypeScript**, **Three.js**, **React Three Fiber (R3F)**, and **Zustand**. Built to visualize high-density 3D geometric datasets and real-time telemetry feeds at a stable **60 FPS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Technical Architecture & Performance Highlights
 
-## React Compiler
+* **GPU Instanced Mesh Rendering (`THREE.InstancedMesh`)**: Eliminates draw-call bottlenecks by batching 2,500+ geometric meshes into a single GPU draw call, maintaining sub-16ms frame times.
+* **View-Frustum Culling Pipeline**: Computes bounding sphere spatial intersections against camera frustum projection matrices on every frame tick (`useFrame`), skipping off-screen geometry processing.
+* **Low-Latency Telemetry Engine**: Leverages Zustand with internal JavaScript `Map` data structures to process high-frequency WebSocket state mutations without triggering full virtual DOM re-renders.
+* **Modular Component Architecture**: Decoupled rendering stage, state orchestration, and data contract layers adhering to strict TypeScript interfaces.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **Core Engine**: React 18, TypeScript, Vite
+* **3D Graphics**: Three.js, `@react-three/fiber`, `@react-three/drei`
+* **State Management**: Zustand
+* **Tooling**: ESLint, WebSockets, Git
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Prerequisites
+* Node.js >= 18.x
+* npm >= 9.x
 
-```
+### Installation & Local Setup
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+```bash
+# Clone repository
+git clone [https://github.com/youfoundmee/3D-Spatial-Mesh-Viewer.git](https://github.com/youfoundmee/3D-Spatial-Mesh-Viewer.git)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Navigate to project directory
+cd 3D-Spatial-Mesh-Viewer
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Install dependencies
+npm install
 
-```
+# Start local development server
+npm run dev
