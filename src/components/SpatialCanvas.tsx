@@ -4,6 +4,7 @@ import { OrbitControls, Stats } from '@react-three/drei';
 import { InstancedMeshViewer } from './InstancedMeshViewer';
 import { NodeInspector } from './NodeInspector';
 import { TelemetryHUD } from './TelemetryHUD';
+import { ViewportControls } from './ViewportControls';
 import { useWebSocketSync } from '../hooks/useWebSocketSync';
 
 interface SpatialCanvasProps {
@@ -17,6 +18,7 @@ export const SpatialCanvas: React.FC<SpatialCanvasProps> = ({ wsUrl }) => {
     <div style={{ position: 'relative', width: '100vw', height: '100vh', background: '#0d0e12' }}>
       <TelemetryHUD />
       <NodeInspector />
+      <ViewportControls />
       <Canvas camera={{ position: [25, 25, 25], fov: 60 }}>
         <Stats className="stats-panel" />
         <ambientLight intensity={0.6} />
