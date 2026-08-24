@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from '@jest/globals';
 import { useSpatialStore } from '../store/useSpatialStore';
 import { MeshNode } from '../types/spatial';
 

@@ -1,7 +1,8 @@
 import React, { useRef, useLayoutEffect } from 'react';
-import { useFrame, useThree, ThreeEvent } from '@react-three/fiber';
+import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useSpatialStore } from '../store/useSpatialStore';
+import { MeshNode, SpatialState } from '../types/spatial';
 
 const dummyMatrix = new THREE.Matrix4();
 const dummyObject = new THREE.Object3D();
@@ -11,17 +12,17 @@ const colorHelper = new THREE.Color();
 
 export const InstancedMeshViewer: React.FC = () => {
   const instancedMeshRef = useRef<THREE.InstancedMesh>(null);
-  const nodes = useSpatialStore((state) => state.nodes);
-  const selectNode = useSpatialStore((state) => state.selectNode);
+  const nodes = useSpatialStore((state: SpatialState) => state.nodes);
+  const selectNode = useSpatialStore((state: SpatialState) => state.selectNode);
   const { camera } = useThree();
 
-  const nodeList = React.useMemo(() => Array.from(nodes.values()), [nodes]);
+  const nodeList = React.useMemo<MeshNode[]>(() => Array.from(nodes.values()), [nodes]);
   const count = nodeList.length;
 
   useLayoutEffect(() => {
     if (!instancedMeshRef.current || count === 0) return;
 
-    nodeList.forEach((node, index) => {
+    nodeList.forEach((node: MeshNode, index: number) => {
       dummyObject.position.set(...node.position);
       dummyObject.rotation.set(...node.rotation);
       dummyObject.scale.set(...node.scale);
@@ -46,7 +47,7 @@ export const InstancedMeshViewer: React.FC = () => {
     );
     frustum.setFromProjectionMatrix(projScreenMatrix);
 
-    nodeList.forEach((node, idx) => {
+    nodeList.forEach((node: MeshNode, idx: number) => {
       const inView = frustum.containsPoint(new THREE.Vector3(...node.position));
       if (!inView) {
         dummyMatrix.makeScale(0, 0, 0);

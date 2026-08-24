@@ -1,11 +1,12 @@
 import React from 'react';
 import { useSpatialStore } from '../store/useSpatialStore';
+import { SpatialState } from '../types/spatial';
 import { X, Box } from 'lucide-react';
 
 export const NodeInspector: React.FC = () => {
-  const selectedNodeId = useSpatialStore((s) => s.selectedNodeId);
-  const nodes = useSpatialStore((s) => s.nodes);
-  const selectNode = useSpatialStore((s) => s.selectNode);
+  const selectedNodeId = useSpatialStore((s: SpatialState) => s.selectedNodeId);
+  const nodes = useSpatialStore((s: SpatialState) => s.nodes);
+  const selectNode = useSpatialStore((s: SpatialState) => s.selectNode);
 
   if (!selectedNodeId) return null;
   const node = nodes.get(selectedNodeId);
@@ -64,15 +65,15 @@ export const NodeInspector: React.FC = () => {
         </div>
         <div>
           <span style={{ color: '#94a3b8' }}>Position: </span>
-          <code>[{node.position.map((n) => n.toFixed(2)).join(', ')}]</code>
+          <code>[{node.position.map((n: number) => n.toFixed(2)).join(', ')}]</code>
         </div>
         <div>
           <span style={{ color: '#94a3b8' }}>Rotation: </span>
-          <code>[{node.rotation.map((n) => n.toFixed(2)).join(', ')}]</code>
+          <code>[{node.rotation.map((n: number) => n.toFixed(2)).join(', ')}]</code>
         </div>
         <div>
           <span style={{ color: '#94a3b8' }}>Scale: </span>
-          <code>[{node.scale.map((n) => n.toFixed(2)).join(', ')}]</code>
+          <code>[{node.scale.map((n: number) => n.toFixed(2)).join(', ')}]</code>
         </div>
       </div>
     </div>
