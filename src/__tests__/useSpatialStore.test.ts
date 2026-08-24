@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from '@jest/globals';
 import { useSpatialStore } from '../store/useSpatialStore';
-import { MeshNode } from '../types/spatial';
+import type { MeshNode } from '../types/spatial';
 
 describe('useSpatialStore Engine', () => {
   beforeEach(() => {

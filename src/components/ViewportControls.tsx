@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSpatialStore } from '../store/useSpatialStore';
-import { MeshNode } from '../types/spatial';
+import type { MeshNode } from '../types/spatial';
 import { Sliders, Layers } from 'lucide-react';
 
 export const ViewportControls: React.FC = () => {

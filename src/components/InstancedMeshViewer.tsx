@@ -2,7 +2,7 @@ import React, { useRef, useLayoutEffect } from 'react';
 import { useFrame, useThree, type ThreeEvent } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useSpatialStore } from '../store/useSpatialStore';
-import { MeshNode, SpatialState } from '../types/spatial';
+import type { MeshNode, SpatialState } from '../types/spatial';
 
 const dummyMatrix = new THREE.Matrix4();
 const dummyObject = new THREE.Object3D();

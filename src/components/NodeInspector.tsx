@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSpatialStore } from '../store/useSpatialStore';
-import { SpatialState } from '../types/spatial';
+import type { SpatialState } from '../types/spatial';
 import { X, Box } from 'lucide-react';
 
 export const NodeInspector: React.FC = () => {
