@@ -7,6 +7,8 @@ import { OctreeNode, type BoundingBox } from '../utils/Octree';
 
 const dummyMatrix = new THREE.Matrix4();
 const dummyObject = new THREE.Object3D();
+const frustum = new THREE.Frustum();
+const projScreenMatrix = new THREE.Matrix4();
 const colorHelper = new THREE.Color();
 
 export const InstancedMeshViewer: React.FC = () => {
@@ -18,7 +20,6 @@ export const InstancedMeshViewer: React.FC = () => {
   const nodeList = useMemo<MeshNode[]>(() => Array.from(nodes.values()), [nodes]);
   const count = nodeList.length;
 
-  // Build Octree spatial index whenever active nodes change
   const octree = useMemo(() => {
     if (count === 0) return null;
     const bounds: BoundingBox = {
@@ -48,6 +49,26 @@ export const InstancedMeshViewer: React.FC = () => {
       instancedMeshRef.current.instanceColor.needsUpdate = true;
     }
   }, [nodeList, count]);
+
+  useFrame(() => {
+    if (!instancedMeshRef.current || count === 0 || !octree) return;
+
+    projScreenMatrix.multiplyMatrices(
+      camera.projectionMatrix,
+      camera.matrixWorldInverse
+    );
+    frustum.setFromProjectionMatrix(projScreenMatrix);
+
+    nodeList.forEach((node: MeshNode, idx: number) => {
+      const inView = frustum.containsPoint(new THREE.Vector3(...node.position));
+      if (!inView) {
+        dummyMatrix.makeScale(0, 0, 0);
+        instancedMeshRef.current!.setMatrixAt(idx, dummyMatrix);
+      }
+    });
+
+    instancedMeshRef.current.instanceMatrix.needsUpdate = true;
+  });
 
   const handleClick = (e: ThreeEvent<MouseEvent>) => {
     e.stopPropagation();
