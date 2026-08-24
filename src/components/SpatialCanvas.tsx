@@ -1,6 +1,6 @@
 import React from 'react';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import { OrbitControls, Stats } from '@react-three/drei';
 import { InstancedMeshViewer } from './InstancedMeshViewer';
 import { NodeInspector } from './NodeInspector';
 import { TelemetryHUD } from './TelemetryHUD';
@@ -18,6 +18,7 @@ export const SpatialCanvas: React.FC<SpatialCanvasProps> = ({ wsUrl }) => {
       <TelemetryHUD />
       <NodeInspector />
       <Canvas camera={{ position: [25, 25, 25], fov: 60 }}>
+        <Stats className="stats-panel" />
         <ambientLight intensity={0.6} />
         <directionalLight position={[15, 30, 20]} intensity={1.2} />
         <InstancedMeshViewer />
