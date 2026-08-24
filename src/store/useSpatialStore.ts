@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { SpatialState, MeshNode } from '../types/spatial';
+import type { SpatialState, MeshNode } from '../types/spatial';
 
 export const useSpatialStore = create<SpatialState>((set) => ({
   nodes: new Map<string, MeshNode>(),
