@@ -26,5 +26,8 @@ jobs:
       - name: Run TypeScript type check
         run: npx tsc --noEmit
 
+      - name: Run Jest Test Suite
+        run: npm test
+
       - name: Build project bundle
         run: npm run build

@@ -55,7 +55,7 @@ export const ViewportControls: React.FC = () => {
       </div>
 
       <div style={{ display: 'flex', gap: '8px', marginTop: '10px' }}>
-        {[500, 2500, 5000, 10000].map((count) => (
+      {[500, 5000, 20000, 50000].map((count) => (
           <button
             key={count}
             onClick={() => generateNodes(count)}
